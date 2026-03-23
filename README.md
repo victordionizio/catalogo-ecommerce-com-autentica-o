@@ -159,7 +159,7 @@ Rotas de escrita (protegidas por `auth:sanctum`):
 
 ---
 
-## Performance (o que foi otimizado após Lighthouse)
+## Performance
 
 - Dedupe de requests:
   - `fetchProductsApi`: partilha `Promise` para pedidos com os mesmos parâmetros
@@ -183,7 +183,7 @@ Observação: em modo dev (`yarn start`) o Lighthouse pode exibir critical path 
 
 ---
 
-## Docker (execução)
+## Docker 
 
 Pré-requisitos: Docker Engine + Docker Compose v2.
 
@@ -219,34 +219,13 @@ Para Lighthouse “mais fiel”:
 
 - `npm run build` e servir com Laravel (assets buildados) em vez de depender do dev server do Vite.
 
----
-
 ## Como executar testes
 
 - `composer test`
 
 ---
 
-## Publicação no Git (requisito do desafio)
 
-O enunciado pede envio para repositório público (GitHub/Bitbucket/GitLab).
-
-Exemplo:
-
-```bash
-git init
-git add .
-git commit -m "Entrega: catálogo e autenticação com Sanctum"
-git branch -M main
-git remote add origin <URL_DO_SEU_REPO>
-git push -u origin main
-```
-
-Cuidados:
-- Não comitar `.env`.
-- Manter chaves/segredos fora do repositório.
-
----
 
 ## Licença
 
