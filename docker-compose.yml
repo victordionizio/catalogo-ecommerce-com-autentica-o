@@ -1,0 +1,73 @@
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: catalogo_mysql
+    restart: unless-stopped
+    ports:
+      - "${MYSQL_PORT:-3306}:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: "${MYSQL_ROOT_PASSWORD:-root}"
+      MYSQL_DATABASE: "${MYSQL_DATABASE:-catalogo_ecommerce}"
+      MYSQL_USER: "${MYSQL_USER:-laravel}"
+      MYSQL_PASSWORD: "${MYSQL_PASSWORD:-secret}"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-p${MYSQL_ROOT_PASSWORD:-root}"]
+      interval: 5s
+      timeout: 5s
+      retries: 15
+      start_period: 20s
+
+  backend:
+    build:
+      context: .
+      dockerfile: docker/backend/Dockerfile
+    container_name: catalogo_backend
+    restart: unless-stopped
+    ports:
+      - "${BACKEND_PORT:-8080}:80"
+    environment:
+      APP_NAME: "${APP_NAME:-Laravel}"
+      APP_ENV: "${APP_ENV:-local}"
+      APP_KEY: "${APP_KEY:-}"
+      APP_DEBUG: "${APP_DEBUG:-true}"
+      APP_URL: "${APP_URL:-http://localhost:8080}"
+      LOG_CHANNEL: "${LOG_CHANNEL:-stderr}"
+      DB_CONNECTION: mysql
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_DATABASE: "${MYSQL_DATABASE:-catalogo_ecommerce}"
+      DB_USERNAME: "${MYSQL_USER:-laravel}"
+      DB_PASSWORD: "${MYSQL_PASSWORD:-secret}"
+      CACHE_DRIVER: "${CACHE_DRIVER:-file}"
+      SESSION_DRIVER: "${SESSION_DRIVER:-file}"
+      QUEUE_CONNECTION: "${QUEUE_CONNECTION:-sync}"
+    depends_on:
+      mysql:
+        condition: service_healthy
+    volumes:
+      - backend_storage:/var/www/html/storage
+      - backend_cache:/var/www/html/bootstrap/cache
+
+  frontend:
+    build:
+      context: .
+      dockerfile: docker/frontend/Dockerfile
+    container_name: catalogo_frontend
+    restart: unless-stopped
+    ports:
+      - "${FRONTEND_PORT:-5173}:5173"
+    environment:
+      VITE_API_URL: "${VITE_API_URL:-http://localhost:8080/api}"
+    volumes:
+      - ./:/app
+      - frontend_node_modules:/app/node_modules
+    depends_on:
+      - backend
+
+volumes:
+  mysql_data:
+  backend_storage:
+  backend_cache:
+  frontend_node_modules:

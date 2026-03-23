@@ -1,0 +1,93 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/**
+ * Indigo Archive — camada base e utilitários de componente
+ * Cores: indigo-600/700/50, slate-900/600/400/200/50, semânticas emerald/red/amber
+ */
+@layer base {
+    html {
+        @apply scroll-smooth font-sans antialiased;
+    }
+
+    body {
+        @apply min-h-screen bg-slate-50 text-slate-900;
+    }
+}
+
+@layer components {
+    /* Tipografia modular (16px base) */
+    .ds-h1 {
+        @apply text-5xl font-bold tracking-tight text-slate-900;
+        letter-spacing: -0.025em;
+    }
+
+    .ds-h2 {
+        @apply text-4xl font-bold tracking-tight text-slate-900;
+        letter-spacing: -0.025em;
+    }
+
+    .ds-h3 {
+        @apply text-2xl font-bold tracking-tight text-slate-900;
+        letter-spacing: -0.025em;
+    }
+
+    .ds-body-lg {
+        @apply text-lg font-normal text-slate-600;
+    }
+
+    .ds-body {
+        @apply text-base font-normal text-slate-600;
+    }
+
+    .ds-body-sm {
+        @apply text-sm font-normal text-slate-600;
+    }
+
+    .ds-label {
+        @apply mb-1 block text-xs font-bold uppercase tracking-wide text-slate-900;
+    }
+
+    .ds-label-muted {
+        @apply mb-1 block text-xs font-medium uppercase tracking-wide text-slate-400;
+    }
+
+    /* Formulários */
+    .ds-input {
+        @apply w-full rounded-lg border border-slate-200 bg-white px-3 py-2.5 text-base text-slate-900 shadow-sm transition placeholder:text-slate-400 focus:border-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-600/20;
+    }
+
+    .ds-input:disabled {
+        @apply cursor-not-allowed bg-slate-50 text-slate-400;
+    }
+
+    select.ds-input {
+        @apply cursor-pointer appearance-none bg-[length:1rem] bg-[right_0.75rem_center] bg-no-repeat pr-10;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23475569'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+    }
+
+    /* Botões */
+    .ds-btn {
+        @apply inline-flex items-center justify-center rounded-lg px-4 py-2.5 text-sm font-medium transition focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-600 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50;
+    }
+
+    .ds-btn-primary {
+        @apply ds-btn bg-indigo-600 text-white hover:bg-indigo-700 active:scale-[0.98];
+    }
+
+    .ds-btn-secondary {
+        @apply ds-btn border border-slate-200 bg-white text-slate-900 shadow-sm hover:bg-slate-50 active:scale-[0.98];
+    }
+
+    .ds-btn-ghost {
+        @apply ds-btn bg-transparent text-indigo-600 hover:bg-indigo-50 active:scale-[0.98];
+    }
+
+    /* Cartão vitrine */
+    .ds-card {
+        @apply overflow-hidden rounded-lg border border-slate-100 bg-white shadow-card transition hover:border-indigo-100 hover:shadow-card-hover;
+    }
+}
