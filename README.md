@@ -25,7 +25,7 @@ Implementação full stack de referência para um catálogo de produtos com aute
 
 ---
 
-## Objetivo do design (arquitetura para entrevista)
+## Objetivo do design
 
 O foco do projeto é demonstrar organização e separação de responsabilidades, evitando “controllers gordos” e queries espalhadas pelo código.
 
